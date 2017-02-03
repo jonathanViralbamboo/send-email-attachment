@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+      <label for="dog">Do you like dogs?</label>
+      <input type="checkbox" name="dog" value="Yes" id="dog" />
+      <br />
+      <label for="cat">Do you like cats?</label>
+      <input type="checkbox" name="cat" value="Yes" id="cat" />
+      <br />
+      <label for="mouse">Do you like mice?</label>
+      <input type="checkbox" name="mouse" value="Yes" id="mouses" />
+      <br />
+
+      <!-- Remove above form inputs if you want to just send attachments -->
+      Select image to upload:
+      <input type="file" name="fileToUpload" id="fileToUpload" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      <input type="submit" value="Upload File" name="submit">
+    </form>
+  </body>
+</html>
