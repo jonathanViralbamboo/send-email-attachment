@@ -78,6 +78,7 @@ echo $error_message;
     // Checks if box is ticked and puts it in the message
     // IMPORTANT: Not used for sending the attachment,
     // just for checkboxes with different names.
+    // if elements have different names.
     if (isset($_POST['cat'])) {
       $message .= "cat \n";
     }
@@ -86,6 +87,14 @@ echo $error_message;
     }
     if (isset($_POST['mouse'])) {
       $message .= "mouse \n";
+    }
+
+    // If the element have the same name
+    if (isset($_POST['name'])) {
+      foreach($_POST['name'] as $value)
+      {
+        $message .= 'number: '. $value;
+      }
     }
 
     // Required headers to send attachment
