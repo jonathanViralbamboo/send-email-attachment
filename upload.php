@@ -93,7 +93,7 @@ echo $error_message;
     if (isset($_POST['name'])) {
       foreach($_POST['name'] as $value)
       {
-        $message .= 'number: '. $value;
+        $message .= "number: ". $value . "\n";
       }
     }
 

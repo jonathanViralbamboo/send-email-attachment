@@ -1,31 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-      <label for="dog">Do you like dogs?</label>
-      <input type="checkbox" name="dog" value="Yes" id="dog" />
-      <br />
-      <label for="cat">Do you like cats?</label>
-      <input type="checkbox" name="cat" value="Yes" id="cat" />
-      <br />
-      <label for="mouse">Do you like mice?</label>
-      <input type="checkbox" name="mouse" value="Yes" id="mouses" />
-      <br />
+<head>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> -->
+  <script>
+  $(function() {
 
-      <label for="name">Do you like 1?</label>
-      <input type="checkbox" name="name[]" value="1" id="name" />
-      <br />
-      <label for="name">Do you like 2?</label>
-      <input type="checkbox" name="name[]" value="2" id="name" />
-      <br />
-      <label for="name">Do you like 3?</label>
-      <input type="checkbox" name="name[]" value="3" id="name" />
-      <br />
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function() {
+      var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+    });
 
-      <!-- Remove above form inputs if you want to just send attachments -->
-      Select image to upload:
-      <input type="file" name="fileToUpload" id="fileToUpload" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-      <input type="submit" value="Upload File" name="submit">
-    </form>
-  </body>
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready( function() {
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+        log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if( input.length ) {
+          input.val(log);
+        } else {
+          if( log ) alert(log);
+        }
+
+      });
+    });
+
+  });
+  </script>
+</head>
+<body>
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    <label for="dog">Do you like dogs?</label>
+    <input type="checkbox" name="dog" value="Yes" id="dog" />
+    <br />
+    <label for="cat">Do you like cats?</label>
+    <input type="checkbox" name="cat" value="Yes" id="cat" />
+    <br />
+    <label for="mouse">Do you like mice?</label>
+    <input type="checkbox" name="mouse" value="Yes" id="mouses" />
+    <br />
+
+    <label for="name">Do you like 1?</label>
+    <input type="checkbox" name="name[]" value="1" id="name" />
+    <br />
+    <label for="name">Do you like 2?</label>
+    <input type="checkbox" name="name[]" value="2" id="name" />
+    <br />
+    <label for="name">Do you like 3?</label>
+    <input type="checkbox" name="name[]" value="3" id="name" />
+    <br />
+
+
+    <h4>Input Groups</h4>
+    <div class="input-group">
+      <label class="upload-button">
+        <!-- <input for="file" type="button" value="Choose file to upload..."> -->
+        <span class="">
+          Choose file to upload&hellip; <input type="file" name="fileToUpload" id="fileToUpload" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display: none;">
+        </span>
+      </label>
+      <input type="text" class="upload-text" readonly>
+    </div>
+
+    <br />
+
+    <!-- Remove above form inputs if you want to just send attachments -->
+    <!-- Select image to upload: -->
+    <!-- <input type="file" name="fileToUpload" id="fileToUpload" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"> -->
+    <input type="submit" value="Upload File" name="submit">
+  </form>
+</body>
 </html>
